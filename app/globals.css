@@ -1,16 +1,72 @@
 @import "tailwindcss";
 
-:root {
-  --background: #0f1320;
-  --foreground: #ffffff;
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --radius: var(--radius);
+
+  --color-brand: #D60039;
+  --color-brand-light: #FDF2F5;
+  --color-status-blue: #60AED0;
+  --color-status-pink: #F978A3;
+  --color-status-green: #67B290;
+  --color-status-dark-green: #166846;
+
+  --font-sans: var(--font-roboto);
   --font-roboto: var(--font-roboto);
   --font-poppins: var(--font-poppins);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-roboto);
+:root {
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+  --primary: 347 90% 44%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 210 40% 96%;
+  --secondary-foreground: 222.2 47.4% 11.2%;
+  --muted: 210 40% 96%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --accent: 210 40% 96%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 347 90% 44%;
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: 225 45% 9%;
+  --foreground: 0 0% 100%;
+  --card: 230 54% 22%;
+  --card-foreground: 0 0% 100%;
+  --primary: 347 90% 44%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 230 54% 22%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 230 54% 22%;
+  --muted-foreground: 0 0% 60%;
+  --accent: 230 54% 15%;
+  --accent-foreground: 0 0% 100%;
+  --border: 0 0% 100% / 8%;
+  --input: 0 0% 100% / 10%;
+  --ring: 347 90% 44%;
 }
 
 body {

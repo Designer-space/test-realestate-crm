@@ -30,7 +30,7 @@ export default function LeadsPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="text-white/40 text-sm">Loading leads...</div>
+        <div className="text-muted-foreground text-sm">Loading leads...</div>
       </div>
     )
   }
@@ -38,19 +38,19 @@ export default function LeadsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl text-white" style={{ fontFamily: 'var(--font-poppins), Poppins, sans-serif', fontWeight: 700 }}>
+        <h1 className="text-2xl text-foreground" style={{ fontFamily: 'var(--font-poppins), Poppins, sans-serif', fontWeight: 700 }}>
           All Leads
         </h1>
-        <p className="text-white/40 text-sm mt-1">{filtered.length} leads found</p>
+        <p className="text-muted-foreground text-sm mt-1">{filtered.length} leads found</p>
       </div>
 
       <div className="flex gap-3">
         <div>
-          <label className="block text-xs uppercase tracking-widest text-white/30 mb-1.5" style={{ fontFamily: 'var(--font-roboto), Roboto, sans-serif', fontWeight: 700 }}>Form Type</label>
+          <label className="block text-xs uppercase tracking-widest text-muted-foreground mb-1.5" style={{ fontFamily: 'var(--font-roboto), Roboto, sans-serif', fontWeight: 700 }}>Form Type</label>
           <select
             value={formFilter}
             onChange={(e) => setFormFilter(e.target.value)}
-            className="bg-[#1e2352] border border-white/10 rounded-lg text-white text-sm px-3 py-2 focus:outline-none focus:border-[#D60039]/50"
+            className="bg-card border border-border rounded-lg text-card-foreground text-sm px-3 py-2 focus:outline-none focus:border-primary/50"
           >
             <option value="">All Types</option>
             {FORM_TYPES.map((t) => (
@@ -59,11 +59,11 @@ export default function LeadsPage() {
           </select>
         </div>
         <div>
-          <label className="block text-xs uppercase tracking-widest text-white/30 mb-1.5" style={{ fontFamily: 'var(--font-roboto), Roboto, sans-serif', fontWeight: 700 }}>Status</label>
+          <label className="block text-xs uppercase tracking-widest text-muted-foreground mb-1.5" style={{ fontFamily: 'var(--font-roboto), Roboto, sans-serif', fontWeight: 700 }}>Status</label>
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="bg-[#1e2352] border border-white/10 rounded-lg text-white text-sm px-3 py-2 focus:outline-none focus:border-[#D60039]/50"
+            className="bg-card border border-border rounded-lg text-card-foreground text-sm px-3 py-2 focus:outline-none focus:border-primary/50"
           >
             <option value="">All Statuses</option>
             {STATUSES.map((s) => (
@@ -73,27 +73,27 @@ export default function LeadsPage() {
         </div>
       </div>
 
-      <div className="bg-[#1e2352] border border-white/8 rounded-xl overflow-hidden">
+      <div className="bg-card border border-border rounded-xl overflow-hidden">
         <table className="w-full">
           <thead>
             <tr>
-              <th className="text-left text-xs uppercase tracking-widest text-white/30 px-5 py-3.5" style={{ fontFamily: 'var(--font-roboto), Roboto, sans-serif', fontWeight: 700 }}>Name</th>
-              <th className="text-left text-xs uppercase tracking-widest text-white/30 px-5 py-3.5" style={{ fontFamily: 'var(--font-roboto), Roboto, sans-serif', fontWeight: 700 }}>Phone</th>
-              <th className="text-left text-xs uppercase tracking-widest text-white/30 px-5 py-3.5" style={{ fontFamily: 'var(--font-roboto), Roboto, sans-serif', fontWeight: 700 }}>Email</th>
-              <th className="text-left text-xs uppercase tracking-widest text-white/30 px-5 py-3.5" style={{ fontFamily: 'var(--font-roboto), Roboto, sans-serif', fontWeight: 700 }}>Form Type</th>
-              <th className="text-left text-xs uppercase tracking-widest text-white/30 px-5 py-3.5" style={{ fontFamily: 'var(--font-roboto), Roboto, sans-serif', fontWeight: 700 }}>Status</th>
-              <th className="text-left text-xs uppercase tracking-widest text-white/30 px-5 py-3.5" style={{ fontFamily: 'var(--font-roboto), Roboto, sans-serif', fontWeight: 700 }}>Date Submitted</th>
+              <th className="text-left text-xs uppercase tracking-widest text-muted-foreground px-5 py-3.5" style={{ fontFamily: 'var(--font-roboto), Roboto, sans-serif', fontWeight: 700 }}>Name</th>
+              <th className="text-left text-xs uppercase tracking-widest text-muted-foreground px-5 py-3.5" style={{ fontFamily: 'var(--font-roboto), Roboto, sans-serif', fontWeight: 700 }}>Phone</th>
+              <th className="text-left text-xs uppercase tracking-widest text-muted-foreground px-5 py-3.5" style={{ fontFamily: 'var(--font-roboto), Roboto, sans-serif', fontWeight: 700 }}>Email</th>
+              <th className="text-left text-xs uppercase tracking-widest text-muted-foreground px-5 py-3.5" style={{ fontFamily: 'var(--font-roboto), Roboto, sans-serif', fontWeight: 700 }}>Form Type</th>
+              <th className="text-left text-xs uppercase tracking-widest text-muted-foreground px-5 py-3.5" style={{ fontFamily: 'var(--font-roboto), Roboto, sans-serif', fontWeight: 700 }}>Status</th>
+              <th className="text-left text-xs uppercase tracking-widest text-muted-foreground px-5 py-3.5" style={{ fontFamily: 'var(--font-roboto), Roboto, sans-serif', fontWeight: 700 }}>Date Submitted</th>
             </tr>
           </thead>
           <tbody>
             {filtered.length === 0 ? (
               <tr>
                 <td colSpan={6} className="text-center py-12">
-                  <div className="text-white/30 text-sm mb-2">No leads found</div>
+                  <div className="text-muted-foreground text-sm mb-2">No leads found</div>
                   {(formFilter || statusFilter) && (
                     <button
                       onClick={() => { setFormFilter(''); setStatusFilter('') }}
-                      className="text-[#D60039] text-sm hover:underline"
+                      className="text-primary text-sm hover:underline"
                     >
                       Clear filters
                     </button>
@@ -102,17 +102,17 @@ export default function LeadsPage() {
               </tr>
             ) : (
               filtered.map((lead) => (
-                <tr key={lead.id} className="hover:bg-white/[0.02]">
+                <tr key={lead.id} className="hover:bg-accent/50">
                   <td className="px-5 py-3.5">
-                    <Link href={`/leads/${lead.id}`} className="text-sm hover:text-[#D60039] transition-colors" style={{ fontFamily: 'var(--font-roboto), Roboto, sans-serif', fontWeight: 500 }}>
+                    <Link href={`/leads/${lead.id}`} className="text-sm hover:text-primary transition-colors" style={{ fontFamily: 'var(--font-roboto), Roboto, sans-serif', fontWeight: 500 }}>
                       {lead.full_name}
                     </Link>
                   </td>
-                  <td className="px-5 py-3.5 text-sm text-white/60">{lead.phone_number}</td>
-                  <td className="px-5 py-3.5 text-sm text-white/60">{lead.email || '—'}</td>
+                  <td className="px-5 py-3.5 text-sm text-muted-foreground">{lead.phone_number}</td>
+                  <td className="px-5 py-3.5 text-sm text-muted-foreground">{lead.email || '—'}</td>
                   <td className="px-5 py-3.5"><FormTypeBadge formType={lead.form_type} /></td>
                   <td className="px-5 py-3.5"><StatusBadge status={lead.status} /></td>
-                  <td className="px-5 py-3.5 text-white/40 text-xs">
+                  <td className="px-5 py-3.5 text-muted-foreground text-xs">
                     {new Date(lead.created_at).toLocaleDateString('en-IN')}
                   </td>
                 </tr>
