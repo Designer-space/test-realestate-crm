@@ -3,6 +3,7 @@ import { Poppins, Roboto, Geist } from 'next/font/google'
 import './globals.css'
 import Sidebar from '@/components/Sidebar'
 import { ThemeProvider } from '@/components/ThemeProvider'
+import ChatBot from '@/components/ChatBot'
 import { cn } from "@/lib/utils";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
@@ -37,6 +38,7 @@ export default function RootLayout({
           <main className="ml-64 p-8">
             {children}
           </main>
+          <ChatBot />
         </ThemeProvider>
       </body>
     </html>
