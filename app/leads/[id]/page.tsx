@@ -5,6 +5,15 @@ import { useParams } from 'next/navigation'
 import Link from 'next/link'
 import { CheckCircle, User, Phone, Mail, Calendar } from 'lucide-react'
 import { StatusBadge, FormTypeBadge } from '@/components/Badges'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { buttonVariants } from '@/components/ui/button'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import type { Lead } from '@/lib/supabase'
 
 const STATUSES = ['New', 'Contacted', 'Qualified', 'Follow-up', 'Converted', 'Rejected']
@@ -72,8 +81,8 @@ export default function LeadDetailPage() {
       .finally(() => setLoading(false))
   }, [id])
 
-  const handleStatusChange = async (newStatus: string) => {
-    if (!lead) return
+  const handleStatusChange = async (newStatus: string | null) => {
+    if (!lead || !newStatus) return
     setLead({ ...lead, status: newStatus as Lead['status'] })
 
     await fetch(`/api/leads/${id}`, {
@@ -98,9 +107,7 @@ export default function LeadDetailPage() {
     return (
       <div className="text-center py-12">
         <p className="text-muted-foreground text-sm">Lead not found</p>
-        <Link href="/leads" className="text-primary text-sm hover:underline mt-2 inline-block">
-          Back to leads
-        </Link>
+        <Link href="/leads" className={`${buttonVariants({ variant: 'ghost', size: 'sm' })} mt-2`}>Back to leads</Link>
       </div>
     )
   }
@@ -110,7 +117,7 @@ export default function LeadDetailPage() {
 
   return (
     <div className="max-w-3xl space-y-6">
-      <Link href="/leads" className="text-muted-foreground text-sm hover:text-foreground transition-colors">
+      <Link href="/leads" className={`${buttonVariants({ variant: 'ghost', size: 'sm' })} text-muted-foreground hover:text-foreground`}>
         &larr; Back to leads
       </Link>
 
@@ -128,15 +135,16 @@ export default function LeadDetailPage() {
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <select
-            value={lead.status}
-            onChange={(e) => handleStatusChange(e.target.value)}
-            className="bg-card border border-border rounded-lg text-card-foreground text-sm px-3 py-2 focus:outline-none focus:border-primary/50"
-          >
-            {STATUSES.map((s) => (
-              <option key={s} value={s}>{s}</option>
-            ))}
-          </select>
+          <Select value={lead.status} onValueChange={handleStatusChange}>
+            <SelectTrigger className="w-40">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {STATUSES.map((s) => (
+                <SelectItem key={s} value={s}>{s}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
           {saved && (
             <div className="flex items-center gap-1 text-status-green text-sm">
               <CheckCircle size={14} />
@@ -146,59 +154,70 @@ export default function LeadDetailPage() {
         </div>
       </div>
 
-      <div className="bg-card border border-border rounded-xl p-5">
-        <h3 className="text-xs uppercase tracking-widest text-muted-foreground mb-4" style={{ fontFamily: 'var(--font-roboto), Roboto, sans-serif', fontWeight: 700 }}>
-          Contact Information
-        </h3>
-        <div className="grid grid-cols-2 gap-4">
-          <FieldRow icon={<User size={14} />} label="Full Name" value={lead.full_name} />
-          <FieldRow icon={<Phone size={14} />} label="Phone" value={lead.phone_number} />
-          <FieldRow icon={<Mail size={14} />} label="Email" value={lead.email || '—'} />
-          <FieldRow icon={<Calendar size={14} />} label="Submitted" value={new Date(lead.created_at).toLocaleDateString('en-IN')} />
-        </div>
-      </div>
+      <Card>
+        <CardHeader className="border-b">
+          <CardTitle className="text-xs uppercase tracking-widest text-muted-foreground">Contact Information</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-2 gap-4 pt-4">
+            <FieldRow icon={<User size={14} />} label="Full Name" value={lead.full_name} />
+            <FieldRow icon={<Phone size={14} />} label="Phone" value={lead.phone_number} />
+            <FieldRow icon={<Mail size={14} />} label="Email" value={lead.email || '—'} />
+            <FieldRow icon={<Calendar size={14} />} label="Submitted" value={new Date(lead.created_at).toLocaleDateString('en-IN')} />
+          </div>
+        </CardContent>
+      </Card>
 
-      <div className="bg-card border border-border rounded-xl p-5">
-        <h3 className="text-xs uppercase tracking-widest text-muted-foreground mb-4" style={{ fontFamily: 'var(--font-roboto), Roboto, sans-serif', fontWeight: 700 }}>
-          Current Status
-        </h3>
-        <StatusBadge status={lead.status} />
-      </div>
+      <Card>
+        <CardHeader className="border-b">
+          <CardTitle className="text-xs uppercase tracking-widest text-muted-foreground">Current Status</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="pt-4">
+            <StatusBadge status={lead.status} />
+          </div>
+        </CardContent>
+      </Card>
 
-      <div className="bg-card border border-border rounded-xl p-5">
-        <h3 className="text-xs uppercase tracking-widest text-muted-foreground mb-4" style={{ fontFamily: 'var(--font-roboto), Roboto, sans-serif', fontWeight: 700 }}>
-          {lead.form_type} Details
-        </h3>
-        <div className="grid grid-cols-2 gap-4">
-          {metadataEntries.map(([key, value]) => (
-            <div key={key}>
-              <div className="text-muted-foreground text-xs mb-0.5">{labels[key]}</div>
-              {isUrl(value) ? (
-                <a
-                  href={String(value)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-primary text-sm hover:underline break-all"
-                  style={{ fontFamily: 'var(--font-roboto), Roboto, sans-serif', fontWeight: 700 }}
-                >
-                  {String(value)}
-                </a>
-              ) : (
-                <p className="text-card-foreground text-sm" style={{ fontFamily: 'var(--font-roboto), Roboto, sans-serif', fontWeight: 700 }}>
-                  {String(value) || '—'}
-                </p>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
+      <Card>
+        <CardHeader className="border-b">
+          <CardTitle className="text-xs uppercase tracking-widest text-muted-foreground">
+            {lead.form_type} Details
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-2 gap-4 pt-4">
+            {metadataEntries.map(([key, value]) => (
+              <div key={key}>
+                <div className="text-muted-foreground text-xs mb-0.5">{labels[key]}</div>
+                {isUrl(value) ? (
+                  <a
+                    href={String(value)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary text-sm hover:underline break-all font-bold"
+                  >
+                    {String(value)}
+                  </a>
+                ) : (
+                  <p className="text-card-foreground text-sm font-bold">
+                    {String(value) || '—'}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
 
-      <div className="bg-card border border-border rounded-xl p-5">
-        <h3 className="text-xs uppercase tracking-widest text-muted-foreground mb-4" style={{ fontFamily: 'var(--font-roboto), Roboto, sans-serif', fontWeight: 700 }}>
-          Debug
-        </h3>
-        <span className="font-mono text-muted-foreground text-xs">{lead.id}</span>
-      </div>
+      <Card>
+        <CardHeader className="border-b">
+          <CardTitle className="text-xs uppercase tracking-widest text-muted-foreground">Debug</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <span className="font-mono text-muted-foreground text-xs pt-4 block">{lead.id}</span>
+        </CardContent>
+      </Card>
     </div>
   )
 }
@@ -211,7 +230,7 @@ function FieldRow({ icon, label, value }: { icon: React.ReactNode; label: string
       </div>
       <div>
         <div className="text-muted-foreground text-xs">{label}</div>
-        <div className="text-card-foreground text-sm" style={{ fontFamily: 'var(--font-roboto), Roboto, sans-serif', fontWeight: 700 }}>
+        <div className="text-card-foreground text-sm font-bold">
           {value}
         </div>
       </div>

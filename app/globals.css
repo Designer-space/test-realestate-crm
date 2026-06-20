@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -18,13 +20,23 @@
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
+  --color-destructive: hsl(var(--destructive));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
   --radius: var(--radius);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 
   --color-brand: #D60039;
   --color-brand-light: #FDF2F5;
-  --color-status-blue: #60AED0;
-  --color-status-pink: #F978A3;
-  --color-status-green: #67B290;
+  --color-status-blue: #3A8DB5;
+  --color-status-pink: #C7466B;
+  --color-status-green: #4A9A75;
   --color-status-dark-green: #166846;
 
   --font-sans: var(--font-roboto);
@@ -37,18 +49,21 @@
   --foreground: 222.2 84% 4.9%;
   --card: 0 0% 100%;
   --card-foreground: 222.2 84% 4.9%;
-  --primary: 347 90% 44%;
+  --primary: 347 90% 37%;
   --primary-foreground: 0 0% 100%;
   --secondary: 210 40% 96%;
   --secondary-foreground: 222.2 47.4% 11.2%;
   --muted: 210 40% 96%;
-  --muted-foreground: 215.4 16.3% 46.9%;
+  --muted-foreground: 215.4 16.3% 37%;
   --accent: 210 40% 96%;
   --accent-foreground: 222.2 47.4% 11.2%;
   --border: 214.3 31.8% 91.4%;
   --input: 214.3 31.8% 91.4%;
   --ring: 347 90% 44%;
   --radius: 0.5rem;
+  --destructive: 0 84.2% 60.2%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
 }
 
 .dark {
@@ -56,25 +71,38 @@
   --foreground: 0 0% 100%;
   --card: 230 54% 22%;
   --card-foreground: 0 0% 100%;
-  --primary: 347 90% 44%;
+  --primary: 347 90% 37%;
   --primary-foreground: 0 0% 100%;
   --secondary: 230 54% 22%;
   --secondary-foreground: 0 0% 100%;
   --muted: 230 54% 22%;
-  --muted-foreground: 0 0% 60%;
+  --muted-foreground: 0 0% 70%;
   --accent: 230 54% 15%;
   --accent-foreground: 0 0% 100%;
   --border: 0 0% 100% / 8%;
   --input: 0 0% 100% / 10%;
   --ring: 347 90% 44%;
+  --destructive: 0 62.8% 30.6%;
+  --popover: 230 54% 22%;
+  --popover-foreground: 0 0% 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
   font-family: var(--font-roboto), Roboto, sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-poppins), Poppins, sans-serif;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
 }

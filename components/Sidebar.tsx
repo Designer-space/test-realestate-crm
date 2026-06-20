@@ -3,6 +3,8 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { LayoutDashboard, Users } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Separator } from '@/components/ui/separator'
 import ThemeToggle from './ThemeToggle'
 
 const navLinks = [
@@ -28,7 +30,7 @@ export default function Sidebar() {
             <rect x="2" y="14" width="10" height="10" rx="2" fill="url(#aspect-gradient)" opacity="0.7" />
           </svg>
           <div>
-            <div className="text-foreground text-sm" style={{ fontFamily: 'var(--font-poppins), Poppins, sans-serif', fontWeight: 600 }}>
+            <div className="text-foreground text-sm font-semibold" style={{ fontFamily: 'var(--font-poppins), Poppins, sans-serif' }}>
               Aspect CRM
             </div>
             <div className="text-muted-foreground text-xs">Infrastructure & Construction</div>
@@ -36,21 +38,22 @@ export default function Sidebar() {
         </div>
       </div>
 
-      <nav className="flex-1 py-4">
+      <nav className="flex-1 py-4" role="navigation" aria-label="Main navigation">
         {navLinks.map((link) => {
           const isActive = pathname === link.href || pathname.startsWith(link.href + '/')
           return (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`flex items-center gap-3 px-6 py-3 text-sm transition-colors ${
-                isActive
-                  ? 'text-foreground font-medium bg-accent border-l-[3px] border-primary'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-accent border-l-[3px] border-transparent'
-              }`}
-            >
-              <link.icon size={16} />
-              {link.label}
+            <Link key={link.href} href={link.href}>
+              <Button
+                variant="ghost"
+                className={`w-full justify-start gap-3 px-6 py-3 h-auto text-sm rounded-none border-l-[3px] ${
+                  isActive
+                    ? 'text-foreground font-medium bg-accent border-primary'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-accent border-transparent'
+                }`}
+              >
+                <link.icon size={16} />
+                {link.label}
+              </Button>
             </Link>
           )
         })}
@@ -58,6 +61,7 @@ export default function Sidebar() {
 
       <div className="border-t border-border">
         <ThemeToggle />
+        <Separator />
         <div className="px-6 py-4">
           <p className="text-muted-foreground text-xs italic" style={{ fontFamily: 'var(--font-roboto), Roboto, sans-serif' }}>
             Bridging Traditions, Building Tomorrow

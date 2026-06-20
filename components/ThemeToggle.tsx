@@ -3,6 +3,7 @@
 import { useTheme } from 'next-themes'
 import { Sun, Moon } from 'lucide-react'
 import { useSyncExternalStore } from 'react'
+import { Button } from '@/components/ui/button'
 
 const emptySubscribe = () => () => {}
 const getServerSnapshot = () => false
@@ -16,12 +17,14 @@ export default function ThemeToggle() {
   const isDark = theme === 'dark'
 
   return (
-    <button
+    <Button
+      variant="ghost"
+      size="sm"
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
-      className="flex items-center gap-3 px-6 py-3 text-sm w-full transition-colors text-muted-foreground hover:text-foreground hover:bg-accent"
+      className="w-full justify-start gap-3 px-6 py-3 h-auto text-sm text-muted-foreground hover:text-foreground rounded-none"
     >
       {isDark ? <Sun size={16} /> : <Moon size={16} />}
       {isDark ? 'Light Mode' : 'Dark Mode'}
-    </button>
+    </Button>
   )
 }

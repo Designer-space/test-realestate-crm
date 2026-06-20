@@ -1,8 +1,11 @@
 import type { Metadata } from 'next'
-import { Poppins, Roboto } from 'next/font/google'
+import { Poppins, Roboto, Geist } from 'next/font/google'
 import './globals.css'
 import Sidebar from '@/components/Sidebar'
 import { ThemeProvider } from '@/components/ThemeProvider'
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -27,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${poppins.variable} ${roboto.variable}`} suppressHydrationWarning>
+    <html lang="en" className={cn(poppins.variable, roboto.variable, "font-sans", geist.variable)} suppressHydrationWarning>
       <body className="min-h-screen bg-background text-foreground">
         <ThemeProvider>
           <Sidebar />
