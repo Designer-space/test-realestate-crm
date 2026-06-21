@@ -6,6 +6,7 @@ import { LayoutDashboard, Users } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import ThemeToggle from './ThemeToggle'
+import Image from 'next/image'
 
 const navLinks = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -19,21 +20,12 @@ export default function Sidebar() {
     <aside className="fixed left-0 top-0 h-full w-64 bg-card border-r border-border flex flex-col z-50">
       <div className="px-6 py-6 border-b border-border">
         <div className="flex items-center gap-3">
-          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="aspect-gradient" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse">
-                <stop stopColor="#1B1D4D" />
-                <stop offset="1" stopColor="#166846" />
-              </linearGradient>
-            </defs>
-            <rect x="14" y="2" width="20" height="20" rx="3" fill="url(#aspect-gradient)" />
-            <rect x="2" y="14" width="10" height="10" rx="2" fill="url(#aspect-gradient)" opacity="0.7" />
-          </svg>
+          <Image src="/logo.png" alt="Aspect Realty Logo" width={40} height={40} />
           <div>
             <div className="text-foreground text-sm font-semibold" style={{ fontFamily: 'var(--font-poppins), Poppins, sans-serif' }}>
-              Aspect CRM
+            Aspect Realty CRM
             </div>
-            <div className="text-muted-foreground text-xs">Infrastructure & Construction</div>
+            <div className="text-muted-foreground text-xs">From Inquiry to Closure</div>
           </div>
         </div>
       </div>

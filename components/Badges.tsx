@@ -10,19 +10,18 @@ const statusVariants: Record<string, "default" | "secondary" | "destructive" | "
 }
 
 const statusColors: Record<string, string> = {
-  New: "bg-status-blue/15 text-status-blue border-status-blue/25",
-  Contacted: "bg-status-pink/15 text-status-pink border-status-pink/25",
-  Qualified: "bg-status-green/15 text-status-green border-status-green/25",
-  "Follow-up": "",
-  Converted: "bg-status-dark-green/20 text-status-green border-status-dark-green/30",
-  Rejected: "bg-primary/15 text-primary border-primary/25",
+  New: 'bg-blue-50  text-blue-950  border border-blue-200  dark:bg-blue-900  dark:text-blue-50  dark:border-blue-700',
+  Contacted: 'bg-pink-50  text-pink-950  border border-pink-200  dark:bg-pink-900  dark:text-pink-50  dark:border-pink-700',
+  Qualified: 'bg-teal-50  text-teal-950  border border-teal-200  dark:bg-teal-900  dark:text-teal-50  dark:border-teal-700',
+  'Follow-up': 'bg-amber-50 text-amber-950 border border-amber-200 dark:bg-amber-900 dark:text-amber-50 dark:border-amber-700',
+  Converted: 'bg-green-50 text-green-950 border border-green-200 dark:bg-green-900 dark:text-green-50 dark:border-green-700',
+  Rejected: 'bg-red-50   text-red-950   border border-red-200   dark:bg-red-900   dark:text-red-50   dark:border-red-700',
 }
-
 const formTypeColors: Record<string, string> = {
-  "SRA Opportunity": "bg-primary/15 text-primary border-primary/25",
-  Redevelopment: "bg-status-blue/15 text-status-blue border-status-blue/25",
-  "Open Plot": "bg-status-dark-green/20 text-status-green border-status-dark-green/30",
-  Others: "border-black/25 text-black",
+  Redevelopment: 'bg-sky-50     text-sky-950     border border-sky-200     dark:bg-sky-900     dark:text-sky-50     dark:border-sky-700',
+  'SRA Opportunity': 'bg-rose-50    text-rose-950    border border-rose-200    dark:bg-rose-900    dark:text-rose-50    dark:border-rose-700',
+  'Open Plot': 'bg-emerald-50 text-emerald-950 border border-emerald-200 dark:bg-emerald-900 dark:text-emerald-50 dark:border-emerald-700',
+  Others: 'bg-slate-100  text-slate-900   border border-slate-200   dark:bg-slate-700   dark:text-slate-100  dark:border-slate-600',
 }
 
 export function StatusBadge({ status }: { status: string }) {
