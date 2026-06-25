@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { getSupabase, getSupabaseAdmin } from '@/lib/supabase'
+import { notifyNewLeadAdmin, notifyNewLeadUser } from '@/lib/whatsapp'
 
 export async function GET() {
   const supabase = getSupabase()
@@ -36,6 +37,9 @@ export async function POST(request: Request) {
   if (error) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 })
   }
+
+  notifyNewLeadAdmin(full_name, phone_number, form_type)
+  notifyNewLeadUser(phone_number, full_name, form_type)
 
   return NextResponse.json({ success: true, id: data.id })
 }
